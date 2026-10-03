@@ -8,7 +8,7 @@ import ProjectsSection from '../components/ProjectsSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import CtaBanner from '../components/CtaBanner';
 
-export default function Home({ onOpenQuote, onOpenVideo }) {
+export default function Home({ onOpenQuote, onOpenVideo, onViewProductDetails }) {
   return (
     <main className="flex-grow">
       {/* 1. Hero / Banner Section */}
@@ -27,7 +27,10 @@ export default function Home({ onOpenQuote, onOpenVideo }) {
       <ServicesSection onSelectService={(srv) => onOpenQuote(srv)} />
 
       {/* 5. Premium CCTV Cameras & Security Devices (Products) */}
-      <ProductsSection onSelectProduct={(prod) => onOpenQuote(prod)} />
+      <ProductsSection
+        onSelectProduct={(prod) => onOpenQuote(prod)}
+        onViewProductDetails={onViewProductDetails}
+      />
 
       {/* 6. Real Installations. Real Protection (Projects & Stats) */}
       <ProjectsSection onOpenQuote={() => onOpenQuote('Project Inquiry')} />

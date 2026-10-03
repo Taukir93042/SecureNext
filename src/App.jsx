@@ -4,11 +4,14 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import QuoteModal from './components/QuoteModal';
 import VideoModal from './components/VideoModal';
+import ProductDetailModal from './components/ProductDetailModal';
 
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [selectedServiceForQuote, setSelectedServiceForQuote] = useState('');
+  const [selectedProductForDetail, setSelectedProductForDetail] = useState(null);
+  const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
 
   const handleOpenQuote = (serviceName = '') => {
     setSelectedServiceForQuote(typeof serviceName === 'string' ? serviceName : '');
@@ -27,6 +30,15 @@ export default function App() {
     setIsVideoModalOpen(false);
   };
 
+  const handleOpenProductDetail = (product) => {
+    setSelectedProductForDetail(product);
+    setIsProductDetailOpen(true);
+  };
+
+  const handleCloseProductDetail = () => {
+    setIsProductDetailOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-[#070e22] text-slate-800 flex flex-col font-sans selection:bg-[#0080ff] selection:text-white">
       {/* Top Sticky Responsive Navigation */}
@@ -36,6 +48,7 @@ export default function App() {
       <Home
         onOpenQuote={handleOpenQuote}
         onOpenVideo={handleOpenVideo}
+        onViewProductDetails={handleOpenProductDetail}
       />
 
       {/* Footer */}
@@ -51,6 +64,13 @@ export default function App() {
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={handleCloseVideo}
+      />
+
+      <ProductDetailModal
+        isOpen={isProductDetailOpen}
+        product={selectedProductForDetail}
+        onClose={handleCloseProductDetail}
+        onOpenQuote={handleOpenQuote}
       />
     </div>
   );
