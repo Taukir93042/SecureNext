@@ -3,14 +3,14 @@ import { ArrowRight, Check } from 'lucide-react';
 
 export default function AboutSection({ onLearnMore }) {
   const checkItems = [
-    'Certified & Experienced Technicians',
-    'Genuine Products with Warranty',
+    'Certified Technicians',
+    'Genuine Products',
     'Affordable Pricing',
     'End-to-End Support',
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-28 bg-white overflow-hidden">
+    <section id="about" className="py-[60px] bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Left Column: Text & Checklist */}
@@ -21,7 +21,7 @@ export default function AboutSection({ onLearnMore }) {
             </span>
 
             {/* Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.18] font-heading mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.18] font-heading mb-6">
               Complete Security Solutions Under One Roof
             </h2>
 
@@ -30,14 +30,14 @@ export default function AboutSection({ onLearnMore }) {
               At SecureNest, we provide high-quality CCTV installation, maintenance and smart security solutions for homes, offices, shops and industries. Our mission is to make modern security simple, reliable and affordable for everyone.
             </p>
 
-            {/* 4 Checklist Items */}
-            <div className="space-y-3.5 w-full mb-9">
+            {/* 4 Checklist Items (2 per row on mobile & desktop) */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full mb-9">
               {checkItems.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 group">
-                  <div className="w-5 h-5 rounded-full bg-[#0080ff] text-white flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                <div key={idx} className="flex items-center gap-2 sm:gap-3 group">
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#0080ff] text-white flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/30 group-hover:scale-110 transition-transform">
+                    <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.5]" />
                   </div>
-                  <span className="text-sm sm:text-base font-semibold text-slate-800 group-hover:text-[#0080ff] transition-colors">
+                  <span className="text-xs sm:text-sm md:text-base font-semibold text-slate-800 group-hover:text-[#0080ff] transition-colors whitespace-nowrap">
                     {item}
                   </span>
                 </div>
@@ -57,12 +57,12 @@ export default function AboutSection({ onLearnMore }) {
           {/* Right Column: Single Large Technician Installation Image */}
           <div className="lg:col-span-6">
             <div className="relative mx-auto max-w-lg lg:max-w-none">
-              {/* Outer Subtle Glow / Shadow */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-slate-900 border border-slate-100 group">
+              {/* Image Container (No shadow) */}
+              <div className="relative rounded-3xl overflow-hidden bg-slate-900 border border-slate-100 group">
                 <img
                   src="/images/about-installer.jpg"
                   alt="SecureNest Professional Technician Installing CCTV"
-                  className="w-full h-[420px] sm:h-[480px] lg:h-[520px] object-cover object-top sm:object-center group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-[420px] sm:h-[480px] lg:h-[475px] object-cover object-top sm:object-center group-hover:scale-105 transition-transform duration-700"
                   loading="lazy"
                 />
                 

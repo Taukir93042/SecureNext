@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroBanner from '../components/HeroBanner';
-import QuickCategories from '../components/QuickCategories';
+import FeatureStrip from '../components/FeatureStrip';
 import AboutSection from '../components/AboutSection';
 import ServicesSection from '../components/ServicesSection';
 import ProductsSection from '../components/ProductsSection';
@@ -17,8 +17,8 @@ export default function Home({ onOpenQuote, onOpenVideo, onViewProductDetails })
         onOpenVideo={onOpenVideo}
       />
 
-      {/* 2. Quick Category Cards (6 Cards) */}
-      <QuickCategories onSelectCategory={(cat) => onOpenQuote(cat)} />
+      {/* 2. Feature Highlights Strip */}
+      <FeatureStrip />
 
       {/* 3. About SecureNest Section */}
       <AboutSection onLearnMore={() => onOpenQuote('Security Consultation')} />

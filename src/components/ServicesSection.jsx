@@ -1,8 +1,10 @@
-import React, { useRef } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 export default function ServicesSection({ onSelectService }) {
   const scrollContainerRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const touchTimeout = useRef(null);
 
   const services = [
     {
@@ -43,99 +45,104 @@ export default function ServicesSection({ onSelectService }) {
     },
   ];
 
-  const scroll = (direction) => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 320;
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth',
-      });
-    }
+  // Auto slide 1-by-1 smoothly
+  useEffect(() => {
+    if (isHovered) return;
+
+    const interval = setInterval(() => {
+      const container = scrollContainerRef.current;
+      if (!container) return;
+
+      const firstCard = container.children[0];
+      const cardWidth = firstCard ? firstCard.clientWidth + 16 : 300;
+
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      if (maxScrollLeft <= 0) return;
+
+      if (container.scrollLeft >= maxScrollLeft - 15) {
+        container.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+    }, 3200);
+
+    return () => {
+      clearInterval(interval);
+      if (touchTimeout.current) clearTimeout(touchTimeout.current);
+    };
+  }, [isHovered]);
+
+  const handleTouchStart = () => {
+    setIsHovered(true);
+    if (touchTimeout.current) clearTimeout(touchTimeout.current);
+  };
+
+  const handleTouchEnd = () => {
+    touchTimeout.current = setTimeout(() => {
+      setIsHovered(false);
+    }, 2500);
   };
 
   return (
-    <section id="services" className="py-20 lg:py-24 bg-[#07132c] relative overflow-hidden text-white">
+    <section id="services" className="py-[60px] bg-[#07132c] relative overflow-hidden text-white">
       {/* Ambient Glows */}
       <div className="absolute top-1/3 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-          <div>
-            <span className="text-xs font-extrabold uppercase tracking-wider text-sky-400 mb-2 inline-block">
-              OUR SERVICES
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight font-heading">
-              Complete Security Solutions
-            </h2>
-          </div>
-
-          {/* Right Controls: View All + Slider Arrows */}
-          <div className="flex items-center gap-4">
-            <a
-              href="#contact"
-              className="text-sm font-semibold text-sky-400 hover:text-sky-300 transition-colors inline-flex items-center gap-1.5"
-            >
-              <span>View All Services</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => scroll('left')}
-                className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 border border-white/20 text-sky-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-                aria-label="Previous Services"
-              >
-                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={() => scroll('right')}
-                className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 border border-white/20 text-sky-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-                aria-label="Next Services"
-              >
-                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-              </button>
-            </div>
-          </div>
+        {/* Section Header (Centered) */}
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-8">
+          <span className="text-xs font-extrabold uppercase tracking-wider text-sky-400 mb-2 inline-block">
+            OUR SERVICES
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight font-heading">
+            Complete Security Solutions
+          </h2>
         </div>
 
-        {/* Scrollable White Service Cards Track */}
+        {/* Scrollable Service Cards Track (1-by-1 auto-slide) */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-5 sm:gap-6 overflow-x-auto scrollbar-none scroll-smooth pb-4 px-1 -mx-1 snap-x snap-mandatory"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-none scroll-smooth pt-4 pb-6 px-4 -mx-4 sm:px-2 sm:-mx-2 snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {services.map((item) => (
             <div
               key={item.id}
               onClick={() => onSelectService && onSelectService(item.title)}
-              className="group shrink-0 w-[265px] sm:w-[285px] lg:w-[290px] bg-white rounded-3xl p-4 sm:p-5 text-left shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer snap-start flex flex-col justify-between hover:-translate-y-1.5 border border-slate-100"
+              className="group shrink-0 w-[85vw] max-w-[320px] sm:w-[285px] lg:w-[290px] bg-white rounded-2xl sm:rounded-3xl overflow-hidden text-left shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer snap-center sm:snap-start flex flex-col justify-between hover:-translate-y-1.5 border border-slate-100"
             >
               <div>
-                {/* Top Image Container */}
-                <div className="w-full aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 flex items-center justify-center mb-4.5 relative">
+                {/* Full Width Top Image */}
+                <div className="w-full h-48 sm:h-48 overflow-hidden bg-slate-900 relative">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>
 
-                {/* Service Title */}
-                <h3 className="text-base font-bold text-slate-900 group-hover:text-[#0066ff] transition-colors leading-snug mb-1 font-heading">
-                  {item.title}
-                </h3>
+                {/* Content Container */}
+                <div className="p-5 pb-2">
+                  {/* Service Title */}
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-[#0066ff] transition-colors leading-snug mb-1 font-heading">
+                    {item.title}
+                  </h3>
 
-                {/* Subtitle Description */}
-                <p className="text-xs text-slate-500 font-normal leading-normal mb-5">
-                  {item.desc}
-                </p>
+                  {/* Subtitle Description */}
+                  <p className="text-xs sm:text-sm text-slate-500 font-normal leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
 
               {/* Bottom "Learn More →" Link */}
-              <div className="pt-2">
+              <div className="px-5 pb-5 pt-2">
                 <span className="text-xs sm:text-sm font-bold text-[#0066ff] group-hover:text-[#0050d0] inline-flex items-center gap-1.5 transition-colors">
                   <span>Learn More</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -143,6 +150,17 @@ export default function ServicesSection({ onSelectService }) {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Centered Bottom CTA Button */}
+        <div className="mt-10 sm:mt-6 flex justify-center">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#0066ff] to-[#00a6ff] hover:from-[#0052cc] hover:to-[#0088ff] text-white font-bold text-sm sm:text-base shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
+          >
+            <span>View All Services</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>

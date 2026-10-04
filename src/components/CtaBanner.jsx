@@ -4,7 +4,7 @@ import { ArrowRight, Phone } from 'lucide-react';
 export default function CtaBanner({ onOpenQuote }) {
   return (
     <section
-      className="relative py-20 lg:py-24 bg-cover bg-center bg-no-repeat bg-fixed text-white overflow-hidden"
+      className="relative py-[60px] bg-cover bg-center bg-no-repeat bg-fixed text-white overflow-hidden"
       style={{
         backgroundImage: "url('/images/cta-security-bg.jpg')",
       }}
@@ -20,7 +20,7 @@ export default function CtaBanner({ onOpenQuote }) {
             <span className="text-xs font-extrabold uppercase tracking-widest text-sky-400 mb-2 inline-block drop-shadow-md">
               READY TO SECURE YOUR PROPERTY?
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight font-heading mb-2.5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight font-heading mb-2.5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
               Get a Free Consultation &amp; Quote
             </h2>
             <p className="text-slate-100 text-sm sm:text-base font-medium max-w-xl drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">

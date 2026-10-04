@@ -118,29 +118,15 @@ export default function ProjectsSection({ onOpenQuote }) {
   }, []);
 
   return (
-    <section id="projects" className="py-20 lg:py-28 bg-white overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <span className="text-xs font-extrabold uppercase tracking-wider text-[#0080ff] mb-2 inline-block">
-              OUR PROJECTS
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight font-heading">
-              Real Installations. Real Protection.
-            </h2>
-          </div>
-
-          <div>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 text-sm font-bold text-[#0080ff] hover:text-[#0060df] transition-colors group shrink-0"
-            >
-              <span>View All Projects</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </div>
-        </div>
+    <section id="projects" className="py-[60px] bg-white overflow-hidden relative">
+      {/* Section Header (Centered) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
+        <span className="text-xs font-extrabold uppercase tracking-wider text-[#0080ff] mb-2 inline-block">
+          OUR PROJECTS
+        </span>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight font-heading">
+          Real Installations &amp; Real Protection
+        </h2>
       </div>
 
       {/* Full Width Carousel Container */}
@@ -170,7 +156,7 @@ export default function ProjectsSection({ onOpenQuote }) {
         {/* Continuous Smooth Infinite Scroll Track */}
         <div
           ref={scrollRef}
-          className="flex gap-5 sm:gap-6 overflow-x-auto scrollbar-none pb-4 px-1"
+          className="flex gap-5 sm:gap-6 overflow-x-auto scrollbar-none pt-4 pb-6 px-2 -mx-2"
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
@@ -204,6 +190,17 @@ export default function ProjectsSection({ onOpenQuote }) {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Centered Bottom CTA Button */}
+        <div className="mt-8 sm:mt-10 flex justify-center">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#0066ff] to-[#00a6ff] hover:from-[#0052cc] hover:to-[#0088ff] text-white font-bold text-sm sm:text-base shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
+          >
+            <span>View All Projects</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>

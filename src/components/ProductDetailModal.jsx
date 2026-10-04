@@ -109,7 +109,7 @@ export default function ProductDetailModal({ product, isOpen, onClose, onOpenQuo
                   </span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-black text-white font-heading tracking-tight leading-snug mb-1">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white font-heading tracking-tight leading-snug mb-1">
                   {product.name}
                 </h2>
                 <p className="text-sm text-sky-400 font-medium mb-3">

@@ -82,7 +82,7 @@ export default function Navbar({ onOpenQuote }) {
 
           {/* Right Section: Phone & CTA */}
           <div className="hidden lg:flex items-center gap-6">
-            <a
+            {/* <a
               href="tel:+919876543210"
               className="flex items-center gap-2 text-slate-200 hover:text-white text-sm font-semibold transition-colors group"
             >
@@ -90,7 +90,7 @@ export default function Navbar({ onOpenQuote }) {
                 <Phone className="w-4 h-4" />
               </div>
               <span>+91 9279185479</span>
-            </a>
+            </a> */}
 
             <button
               onClick={onOpenQuote}
@@ -102,14 +102,7 @@ export default function Navbar({ onOpenQuote }) {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-3">
-            <button
-              onClick={onOpenQuote}
-              className="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#0080ff] text-white text-xs font-semibold shadow-md shadow-blue-500/30"
-            >
-              Quote
-            </button>
-
+          <div className="flex md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors focus:outline-none"
